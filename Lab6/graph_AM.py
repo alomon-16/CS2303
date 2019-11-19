@@ -149,6 +149,7 @@ class Graph:
         known = [False for i in range(len(self.am))]
         path = [-1 for i in range(len(self.am))]
         
+        # Push the start vertex (0) to the stack.
         S.append(0)
         
         while len(S) > 0:
