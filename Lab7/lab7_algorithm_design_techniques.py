@@ -3,12 +3,13 @@
 # Assignment: Lab 7 Algorithm Design Techniques
 # Instructor: Olac Fuentes
 # TA: Anindita Nath
-# Date of last modification: December 4
+# Date of last modification: December 6
 # Purpose: The purpose of this program is to implement functions that use
 # algorithm design techniques to solve two different types of problems. The
 # first problem (finding a Hamiltonian cycle) is solved via randomization and
 # backtracking, and the second problem (finding the edit distance from one
-# word to another word) is solved via dynamic programming.
+# word to another word using two different variations of the edit distance
+# function) is solved via dynamic programming.
 import graph_AL as graph
 import connected_components as cc
 import matplotlib.pyplot as plt
@@ -105,6 +106,24 @@ def isHamiltonian(V,Eh):
     # If the graph g = (V,Eh) fails either of the two requirements to have a
     # Hamiltonian cycle, return False.
     return False
+
+def edit_distance(s1,s2):
+    """
+    Return the edit distance table and the value of the edit distance that
+    represents the minimum number of character operations needed to convert s1
+    to s2.
+    """
+    d = np.zeros((len(s1)+1,len(s2)+1),dtype=int)
+    d[0,:] = np.arange(len(s2)+1)
+    d[:,0] = np.arange(len(s1)+1)
+    for i in range(1,len(s1)+1):
+        for j in range(1,len(s2)+1):
+            if s1[i-1] == s2[j-1]:
+                d[i,j] = d[i-1,j-1]
+            else:
+                n = [d[i,j-1],d[i-1,j-1],d[i-1,j]]
+                d[i,j] = min(n)+1      
+    return d, d[-1,-1]
             
 def modified_edit_distance(s1,s2):
     """
@@ -121,11 +140,11 @@ def modified_edit_distance(s1,s2):
         for j in range(1, len(s2)+1):
             if s1[i-1] == s2[j-1]:
                 d[i,j] = d[i-1,j-1]
-            # IF both characters are vowels, allow replacement of characters.
+            # If both characters are vowels, allow replacement of characters.
             elif s1[i-1] in vowels and s2[j-1] in vowels:
                 n = [d[i,j-1],d[i-1,j-1],d[i-1,j]]
                 d[i,j] = min(n) + 1
-            # IF both characters are consonants, allow replacement of
+            # If both characters are consonants, allow replacement of
             # characters.
             elif not s1[i-1] in vowels and not s2[j-1] in vowels:
                 n = [d[i,j-1],d[i-1,j-1],d[i-1,j]]
@@ -220,17 +239,28 @@ if __name__ == "__main__":
           str(total_time) + ' nanoseconds.')
 
     print('\nDYNAMIC PROGRAMMING IMPLEMENTATION TO FIND THE EDIT DISTANCE ' +
-          'FROM ONE WORD TO ANOTHER WORD')
+          'FROM ONE WORD TO ANOTHER WORD USING TWO DIFFERENT VARIATIONS OF ' +
+          'THE EDIT DISTANCE FUNCTION')
     print()
     print('Enter two words')
     s1 = input('Word 1: ')
     s2 = input('Word 2: ')
     print()
-    start_time = time.time_ns()    
-    table, dist = modified_edit_distance(s1, s2)
+    table_1, dist_1 = edit_distance(s1, s2)
     end_time = time.time_ns()
     total_time = end_time - start_time
-    print(table)
-    print('\nEdit distance from ' + s1 + ' to ' + s2 + ' = ' + str(dist))
-    print('Running time to implement the edit distance of two words via ' +
-          'dynamic programming: ' + str(total_time) + ' nanoseconds.')
+    print(table_1)
+    print('\nEdit distance from ' + s1 + ' to ' + s2 + ' = ' + str(dist_1))
+    print('Running time to implement the edit distance of two words ' +
+          '(original variation) via dynamic programming: ' + str(total_time) +
+          ' nanoseconds.')
+    print()
+    start_time = time.time_ns()    
+    table_2, dist_2 = modified_edit_distance(s1, s2)
+    end_time = time.time_ns()
+    total_time = end_time - start_time
+    print(table_2)
+    print('\nEdit distance from ' + s1 + ' to ' + s2 + ' = ' + str(dist_2))
+    print('Running time to implement the edit distance of two words ' +
+          '(modified variation) via dynamic programming: ' + str(total_time) +
+          ' nanoseconds.')

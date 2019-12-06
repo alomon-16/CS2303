@@ -3,7 +3,7 @@
 # Assignment: Lab 7 Algorithm Design Techniques
 # Instructor: Olac Fuentes
 # TA: Anindita Nath
-# Date of last modification: December 4
+# Date of last modification: December 6
 # Purpose: The purpose of this program is to implement a single function that
 # finds and returns the number of connected components of a graph represented
 # as an adjacency list.

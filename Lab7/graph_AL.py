@@ -3,7 +3,7 @@
 # Assignment: Lab 7 Algorithm Design Techniques
 # Instructor: Olac Fuentes
 # TA: Anindita Nath
-# Date of last modification: December 4
+# Date of last modification: December 6
 # Purpose: The purpose of this program is to implement functions that can be
 # used to create a graph represented as an adjacency list.
 import numpy as np

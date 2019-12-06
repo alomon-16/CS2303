@@ -3,7 +3,7 @@
 # Assignment: Lab 7 Algorithm Design Techniques
 # Instructor: Olac Fuentes
 # TA: Anindita Nath
-# Date of last modification: December 4
+# Date of last modification: December 6
 # Purpose: The purpose of this program is to create a disjoint set forest of a
 # graph represented as an adjacency list in order to find the number of 
 # connected components of the graph.
