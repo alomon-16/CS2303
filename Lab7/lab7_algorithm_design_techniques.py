@@ -246,6 +246,7 @@ if __name__ == "__main__":
     s1 = input('Word 1: ')
     s2 = input('Word 2: ')
     print()
+    start_time = time.time_ns()
     table_1, dist_1 = edit_distance(s1, s2)
     end_time = time.time_ns()
     total_time = end_time - start_time
